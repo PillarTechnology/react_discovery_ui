@@ -1,8 +1,10 @@
 import PlotlyEditor, { DefaultEditor, SingleSidebarItem, Button } from 'react-chart-editor'
 import 'react-chart-editor/lib/react-chart-editor.ie.css'
+import { dereference } from 'react-chart-editor/lib'
 import './chart-visualization.css'
 import plotly from 'plotly.js/dist/plotly'
 import { Component } from 'react'
+import { isEqual, cloneDeep } from 'lodash'
 
 const hasDataSources = dataSources => {
   return dataSources && Object.keys(dataSources).length > 0
@@ -19,6 +21,28 @@ export default class ChartVisualization extends Component {
   constructor(props) {
     super(props)
     this.state = { data: [], layout: {}, frames: [] }
+
+    this.updatePlot = this.updatePlot.bind(this)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!isEqual(prevProps.dataSources, this.props.dataSources)) {
+      this.updatePlot()
+    }
+  }
+
+  updatePlot() {
+    this.setState((state, props) => {
+      const data = cloneDeep(state.data)
+      dereference(data, props.dataSources)
+
+      // TODO figure out what to do if/when data and dataSources no longer line up
+      // (i.e. a selected trace column is no longer in the dataSources)
+      return {
+        data,
+        layout: {...state.layout, datarevision: state.layout.datarevision + 1}
+      }
+    })
   }
 
   render() {
