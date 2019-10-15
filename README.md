@@ -54,3 +54,26 @@ Runtime configuration for running the test app locally is stored in `config/conf
 
 Note that any changes to the component will require the package to be rebuilt.
 
+## Running as a React Component in another application
+Run `npm install react_discovery_ui` and then create an App.js file. It should contain code that looks similar to this to include the ReactDiscoveryUI component between a header with a banner and the footer:
+
+```
+import ReactDiscoveryUI from '@smartcitiesdata/react-discovery-ui'
+import { Component } from 'react'
+import Header from './components/header'
+import HomeBanner from './components/home-banner'
+import Footer from './components/footer'
+
+export default class App extends Component {
+  render() {
+    return (
+      <div>
+        <Header />
+        <HomeBanner />
+        <ReactDiscoveryUI />
+        <Footer />
+      </div >
+    )
+  }
+}
+```
