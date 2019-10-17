@@ -1,3 +1,3 @@
-import Connector from './connector'
+import DatasetRecommendations from './dataset-recommendations'
 
-export default Connector
+export default DatasetRecommendations

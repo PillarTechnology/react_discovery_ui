@@ -4,14 +4,7 @@ import CollapsableBox from '../collapsable-box'
 import { RecommendationUtils } from '../../utils'
 
 const DatasetRecommendations = (props) => {
-  const { dataset, getRecommendations, recommendations } = props
-
-  const onInit = () => {
-    getRecommendations(dataset.id)
-  }
-
-  React.useEffect(onInit, [])
-
+  const { recommendations } = props
   const isContentUnavailable = !recommendations || recommendations.length == 0
 
   if (isContentUnavailable) {
@@ -35,8 +28,6 @@ const DatasetRecommendations = (props) => {
 }
 
 DatasetRecommendations.propTypes = {
-  dataset: PropTypes.object.isRequired,
-  getRecommendations: PropTypes.func.isRequired,
   recommendations: PropTypes.array
 }
 
