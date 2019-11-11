@@ -8,7 +8,7 @@ describe('search', () => {
 
   beforeEach(() => {
     searchCallback = jest.fn()
-    subject = shallow(<Search callback={searchCallback} defaultText='some search' />)
+    subject = shallow(<Search callback={searchCallback} searchText='some search' />)
   })
 
   it('does not invoke callback when any key is pressed other than enter', () => {
@@ -37,5 +37,18 @@ describe('search', () => {
     subject = shallow(<Search callback={jest.fn()} />)
 
     expect(subject.find('.clear').hasClass('disabled')).toBeTruthy()
+  })
+
+  it('sets the search text when new text is provided', () => {
+    subject.setProps({ searchText: 'a different search' })
+
+    expect(subject.find('.search-bar').props().value).toBe('a different search')
+  })
+
+  it('does not set the search text when new text prop does not change', () => {
+    subject.find('.search-bar').simulate('change', { target: { value: 'user-entered text' }})
+    subject.setProps({ searchText: 'some search' })
+
+    expect(subject.find('.search-bar').props().value).toBe('user-entered text')
   })
 })

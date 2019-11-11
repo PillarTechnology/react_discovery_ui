@@ -204,7 +204,7 @@ export default class extends Component {
           <div className="right-section">
             <Search
               className="search"
-              defaultText={this.props.searchParams.query}
+              searchText={this.props.searchParams.query}
               placeholder="Search datasets"
               callback={searchCriteria => this.onSearchChange(searchCriteria)}
             />

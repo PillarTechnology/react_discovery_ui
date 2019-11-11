@@ -8,11 +8,17 @@ const ENTER = 13
 export default class extends Component {
   constructor(props) {
     super(props)
-    this.state = { searchText: props.defaultText || '' }
+    this.state = { searchText: this.props.searchText }
     this.onChange = this.onChange.bind(this)
     this.onKeyUp = this.onKeyUp.bind(this)
     this.onClearClicked = this.onClearClicked.bind(this)
     this.searchBox = createRef()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.searchText != this.props.searchText) {
+      this.setState({searchText: this.props.searchText})
+    }
   }
 
   render() {
